@@ -31,11 +31,11 @@ int partition(vector <int> *v, int s, int e){
 	return j;
 }
 
-int quickSort(vector <int> *v, int s, int e, int count){
+int quickSort(vector <int> *v, int s, int e){
 	if(s <= e){
 		int pivot = partition(v, s, e);
-		quickSort(v, s, pivot-1, ++count);
-		quickSort(v, pivot+1, e, ++count);
+		quickSort(v, s, pivot-1);
+		quickSort(v, pivot+1, e);
 	}
 }
 
@@ -43,14 +43,13 @@ int main()
 {
 	/* code */
 	vector <int> v;
-	int n, ip, len, count=0;cin>>n;
+	int n, ip, len;cin>>n;
 	while(n--){
 		cin>>ip;
 		v.push_back(ip);
 	}
 	len = v.size();
-	count = 0;
-	quickSort(&v, 0, len-1, ++count);
+	quickSort(&v, 0, len-1);
 	printArray(v);
 	cout<<endl;
 	return 0;
