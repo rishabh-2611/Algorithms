@@ -45,6 +45,21 @@ bool inOrder(struct Node* root){
 	return true;
 }
 
+void printGivenLevel(struct Node* root, int h){
+	if(root == NULL) return;
+	if(h==1) cout<<root->data<<" ";
+	else if(h > 1)
+		printGivenLevel(root->left, h-1);
+		printGivenLevel(root->right, h-1);
+
+}
+
+bool bfs(struct Node *root){
+	for(int h=1; h<5; h++){
+		printGivenLevel(root, h);
+	}
+}
+
 struct Node *findMin(struct Node* root){
 	while(root->left != NULL) root = root->left;
 	return root;
@@ -62,11 +77,11 @@ struct Node *Delete(struct Node* root, int data){
 			struct Node* temp = findMin(root->right);
 			root->data = temp->data;
 			root->right = Delete(root->right, temp->data);
-		} else if(root->right == NULL){
+		} else if(root->right == NULL){// right child not present
 			struct Node* temp = root;
 			root = root->left;
 			delete temp;
-		} else if(root->left == NULL){
+		} else if(root->left == NULL){//left child not present
 			struct Node* temp = root;
 			root = root->right;
 			delete temp;
@@ -79,10 +94,16 @@ int main()
 {
 	Node *root = NULL;
 
-	root = insert(root, 5);
-	insert(root, 10);
+	root = insert(root, 40);
+	insert(root, 30);
+	insert(root, 60);
+	insert(root, 20);
 	insert(root, 15);
-	inOrder(root);
+	insert(root, 25);
+	insert(root, 35);
+	// inOrder(root);
+	cout<<"BFS - "<<endl;
+	bfs(root);
 	cout<<endl;
 
 	cout<<"search 15 = "<<search(root, 15)<<endl;
@@ -91,12 +112,16 @@ int main()
 
 	root = Delete(root, 15);
 	cout<<"Tree after deletion of 15 - ";
+	cout<<"InOrder - "<<endl;
 	inOrder(root);
 	cout<<endl;
 
-	root = Delete(root, 5);
-	cout<<"Tree after deletion of 5 - ";
+	root = Delete(root, 60);
+	cout<<"Tree after deletion of 60 - ";
+	cout<<"InOrder - "<<endl;
 	inOrder(root);
+	cout<<"BFS - "<<endl;
+	bfs(root);
 	cout<<endl;
 
 	return 0;
