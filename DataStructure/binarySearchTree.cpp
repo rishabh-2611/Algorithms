@@ -45,6 +45,24 @@ bool inOrder(struct Node* root){
 	return true;
 }
 
+bool preOrder(struct Node* root){
+	if(root!=NULL){
+		cout<<root->data<<" ";
+		preOrder(root->left);
+		preOrder(root->right);
+	}
+	return true;
+}
+
+bool postOrder(struct Node* root){
+	if(root!=NULL){
+		postOrder(root->left);
+		postOrder(root->right);
+		cout<<root->data<<" ";
+	}
+	return true;
+}
+
 void printGivenLevel(struct Node* root, int h){
 	if(root == NULL) return;
 	if(h==1) cout<<root->data<<" ";
