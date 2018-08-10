@@ -63,7 +63,7 @@ bool postOrder(struct Node* root){
 	return true;
 }
 
-void printGivenLevel(struct Node* root, int h){
+void printGivenLevel(struct Node* root, int h){ // a helper function for BFS
 	if(root == NULL) return;
 	if(h==1) cout<<root->data<<" ";
 	else if(h > 1)
@@ -82,6 +82,11 @@ struct Node *findMin(struct Node* root){
 	while(root->left != NULL) root = root->left;
 	return root;
 }
+
+struct Node *findMax(struct Node *root){
+	while(root->right != NULL)root = root->right;
+	return root;
+} 
 
 struct Node *Delete(struct Node* root, int data){
 	if(root == NULL){//Case 1: root == NULL
@@ -106,6 +111,16 @@ struct Node *Delete(struct Node* root, int data){
 		}
 	}
 	return root;
+}
+
+int max(int a, int b){
+	return (a>b)?a:b;
+}
+
+int findHeight(struct Node *root){
+	if(root == NULL)
+		return -1;
+	return max(findHeight(root->left), findHeight(root->right))+1;
 }
 
 int main()
@@ -141,6 +156,8 @@ int main()
 	cout<<"BFS - "<<endl;
 	bfs(root);
 	cout<<endl;
+
+	cout<<"Height "<<endl<<findHeight(root)<<endl;
 
 	return 0;
 }
